@@ -25,10 +25,10 @@ public class Network implements Runnable {
 
     private Registry registry;
 
-    public Network(String nodeID, String networkDirectory, int PORT, ViewerKey viewerKey, AdminKey adminKey) {
+    public Network(String nodeID, String nodeDirectory, int PORT, ViewerKey viewerKey, AdminKey adminKey) {
         this.nodeID = nodeID;
         this.networkPORT = PORT;
-        this.networkDirectory = networkDirectory;
+        this.networkDirectory = nodeDirectory;
         this.viewerKey = viewerKey;
         this.adminKey = adminKey;
 
@@ -44,19 +44,22 @@ public class Network implements Runnable {
             registerExplorer();
             registerNodeDirectoryFiles();
             registerInvitation();
-            /*new Thread(new Runnable() {
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(500);
-                        update();  
+                        while (true) {
+                            System.out.println("searching for a new update");
+                            Thread.sleep(500);
+                            update();
+                        }  
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-            });*/
-            System.out.println("Server is running");
+            });
+            System.out.println("Registery Network is running");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
